@@ -13,9 +13,14 @@
       flake-utils,
     }:
     let
-      overlay = final: _: {
-        tsgo = final.callPackage ./tsgo.nix { };
-      };
+      overlay =
+        final: _:
+        let
+          typescript-go = final.callPackage ./typescript_go.nix { };
+        in
+        {
+          inherit typescript-go;
+        };
     in
     {
       overlays.default = overlay;
@@ -30,8 +35,8 @@
       in
       {
         packages = {
-          tsgo = pkgs.tsgo;
-          default = pkgs.tsgo;
+          typescript-go = pkgs.typescript-go;
+          default = pkgs.typescript-go;
         };
       }
     );
